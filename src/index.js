@@ -1,4 +1,5 @@
 import * as SETTERS from './setters.js';
+import * as SHADOW from './shadow.js';
 const mainBtn = document.querySelector('#mainBtn');
 
 const objStyle  = {
@@ -14,6 +15,7 @@ const objStyle  = {
     'opacity': '1',
     'background-color': 'red',
     'color': 'black',
+    'box-shadow': SHADOW.setShadowToBtn(mainBtn),
     'hoverColor': 'blue',
 }
 
@@ -66,7 +68,6 @@ document.addEventListener('input', (event) => {
     }
 
     if(event.target.id === 'hoverColor') {
-        SETTERS.setHoverColor(mainBtn, event.target.value);
         objStyle[event.target.id] = event.target.value;
     }
 
@@ -75,6 +76,25 @@ document.addEventListener('input', (event) => {
         objStyle[event.target.id] = event.target.value;
     }
 
+    // SHADOW
+
+    if(event.target.id === 'shadow-color') {
+        objStyle['box-shadow'] = SHADOW.setColorShadow(event.target.value, mainBtn);
+    }
+    if(event.target.id === 'blur-radius') {
+        objStyle['box-shadow'] = SHADOW.setBlurRadius(event.target.value, mainBtn);
+    }
+    if(event.target.id === 'spread-radius') {
+        objStyle['box-shadow'] = SHADOW.setSpreadRadius(event.target.value, mainBtn);
+    }
+    if(event.target.id === 'offset-x') {
+        objStyle['box-shadow'] = SHADOW.setOffsetX(event.target.value, mainBtn);
+    }
+    if(event.target.id === 'offset-y') {
+        objStyle['box-shadow'] = SHADOW.setOffsetY(event.target.value, mainBtn);
+    }
+
+    // SHADOW
     showCSS(objStyle);
 })
 
@@ -93,10 +113,11 @@ function showCSS(objStyle) {
         }
     })
 }
+
 showCSS(objStyle);
 
 
-
+// FONTS
 const fonts = [
 'Georgia, serif',
 '"Palatino Linotype", "Book Antiqua", Palatino, serif',
@@ -114,4 +135,25 @@ const fonts = [
 fonts.forEach(font => {
     document.querySelector('#font-family').add(new Option(font, font));
 })
+// FONTS
 
+
+// HOVERS
+    mainBtn.addEventListener('mouseover', (event) => {
+        event.target.style.backgroundColor = objStyle.hoverColor;
+    })
+        
+    mainBtn.addEventListener('mouseout', (event) => {
+        event.target.style.backgroundColor = objStyle['background-color'];
+    })
+// HOVERS
+
+
+
+//COPYFUNC
+const copyBtn = document.querySelector('.css-data__btnCopy');
+copyBtn.addEventListener('click', (event) => {
+    const CSS = document.querySelector('#css-data').textContent;
+    navigator.clipboard.writeText(CSS);
+})
+//COPYFUNC

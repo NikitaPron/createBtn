@@ -42,23 +42,5 @@ export function setOpacity(btn, opacity) {
 
 
 
-// HOVERS
-let bgColor;
-let hoverColor;
-export function setHoverColor(btn, color) {
-    hoverColor = color;
-    bgColor = btn.style.backgroundColor;
 
-    if(!bgColor) {
-        btn.addEventListener('mouseover', (event) => {
-            event.target.style.background = hoverColor;
-        })
-        
-        btn.addEventListener('mouseout', (event) => {
-            event.target.style.background = bgColor;
-        })
-    }
-}
-
-// HOVERS
 
